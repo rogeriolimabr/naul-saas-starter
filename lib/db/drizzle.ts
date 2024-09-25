@@ -1,13 +1,16 @@
-import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
-import * as schema from './schema';
-import dotenv from 'dotenv';
+import { drizzle } from 'drizzle-orm/libsql'
+import { createClient } from '@libsql/client'
+import * as schema from './schema'
+import env from '@/env'
 
-dotenv.config();
 
-if (!process.env.POSTGRES_URL) {
-  throw new Error('POSTGRES_URL environment variable is not set');
+if (!env.TURSO_CONNECTION_URL || !env.TURSO_AUTH_TOKEN) {
+  throw new Error('TURSO environment variable is not set')
 }
 
-export const client = postgres(process.env.POSTGRES_URL);
-export const db = drizzle(client, { schema });
+const client = createClient({
+  url: env.TURSO_CONNECTION_URL!,
+  authToken: env.TURSO_AUTH_TOKEN!,
+})
+
+export const db = drizzle(client, { schema })
