@@ -6,25 +6,31 @@ import {
   Divider,
   Flex,
   SimpleGrid,
-  useColorMode
+  Skeleton,
+  useColorMode,
 } from '@chakra-ui/react'
+import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import Logo from '../common/logo'
 import CompanySelect from './components/company-select'
+import { getAllCompanies } from '@/lib/db/queries/company'
 
 const Sidebar = () => {
-  const { isSidebarOpen, toggleSidebar } = useLayout()
+  const { isSidebarOpen } = useLayout()
   const { toggleColorMode } = useColorMode()
 
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['companies'],
+    queryFn: () => getAllCompanies(),
+  })
 
   return (
     <Box
-      p={4}
       transition='all'
-      transitionDuration='300ms'
+      transitionDuration='600ms'
       roundedEnd={12}
       borderEnd={'1px solid'}
-      borderColor='gray.700'
+      borderColor='muted'
       color='text'
       h='screen'
       w={isSidebarOpen ? '290px' : '80px'}
@@ -34,6 +40,7 @@ const Sidebar = () => {
         spacing={3}
       >
         <Flex
+          pt={6}
           height={140}
           justifyContent={'center'}
           alignItems={'center'}
@@ -46,10 +53,16 @@ const Sidebar = () => {
         >
           <Logo width={220} />
         </Flex>
-        <Divider borderColor="muted" />
-        <Box>
-          <CompanySelect />
-        </Box>
+        <Divider borderColor='muted' />
+        {data && (
+          <Box p={4}>
+            {isLoading ? (
+              <Skeleton h={30} />
+            ) : (
+              <CompanySelect companies={data} />
+            )}
+          </Box>
+        )}
         <Box
           bg='tomato'
           height='80px'

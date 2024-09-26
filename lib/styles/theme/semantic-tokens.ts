@@ -1,12 +1,15 @@
 const semanticTokens = {
   colors: {
-    brand: '#FC6432',
+    brand: {
+      default: 'brand.500',
+      _dark: 'brand.400',
+    },
     borderPrimary: {
-      default: 'slate.250',
-      _dark: 'slate.850',
+      default: 'slate.200',
+      _dark: 'slate.800',
     },
     borderSecondary: {
-      default: 'slate.150',
+      default: 'slate.100',
       _dark: 'slate.900',
     },
     error: {
@@ -22,12 +25,16 @@ const semanticTokens = {
       _dark: 'black',
     },
     surfaceHighlight: {
-      default: 'slate.150',
+      default: 'slate.100',
       _dark: 'slate.900',
     },
     text: {
       default: 'slate.900',
-      _dark: 'slate.50',
+      _dark: 'slate.100',
+    },
+    muted: {
+      default: 'slate.200',
+      _dark: 'gray.700',
     },
     textSubdued: {
       default: 'slate.700',
@@ -42,12 +49,12 @@ const semanticTokens = {
       _dark: 'purple.400',
     },
     hoverBackground: {
-      default: 'slate.150',
-      _dark: 'slate.850',
+      default: 'slate.100',
+      _dark: 'slate.900',
     },
     icon: {
       default: 'slate.900',
-      _dark: 'slate.50',
+      _dark: 'slate.100',
     },
     iconSubdued: {
       default: 'slate.700',

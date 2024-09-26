@@ -1,5 +1,6 @@
 'use client'
 
+import { Company } from '@/lib/db/schema'
 import {
   Menu,
   MenuButton,
@@ -10,89 +11,99 @@ import {
   Box,
   Stack,
   Text,
-  useTheme,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { Icon } from '@iconify-icon/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-const CompanySelect = () => {
-  const theme = useTheme()
-  const [selectedCompany, setSelectedCompany] = useState({
-    id: 'default',
-    name: 'Select company',
-    subtitle: 'Choose from the list',
-    avatarUrl: '',
-  })
+const CompanySelect = ({ companies }: { companies: Company[] }) => {
+  const [selectedCompany, setSelectedCompany] = useState<Company | undefined>()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-  // Array de empresas de exemplo
-  const companies = [
-    {
-      id: '1',
-      name: 'Company 1',
-      subtitle: 'Technology',
-      avatarUrl: 'https://bit.ly/dan-abramov',
-    },
-    {
-      id: '2',
-      name: 'Company 2',
-      subtitle: 'Finance',
-      avatarUrl: 'https://bit.ly/tioluwani-kolawole',
-    },
-    {
-      id: '3',
-      name: 'Company 3',
-      subtitle: 'Healthcare',
-      avatarUrl: 'https://bit.ly/kent-c-dodds',
-    },
-  ]
+  const router = useRouter()
+
+  // Função para salvar a empresa selecionada no localStorage
+  const saveSelectedCompany = (company: Company) => {
+    localStorage.setItem('selectedCompany', JSON.stringify(company))
+    setSelectedCompany(company)
+  }
+
+  // Ao montar o componente, busca a empresa do localStorage ou define a padrão
+  useEffect(() => {
+    const savedCompany = localStorage.getItem('selectedCompany')
+
+    if (savedCompany) {
+      // Se já existir uma empresa salva no localStorage, definir como selecionada
+      setSelectedCompany(JSON.parse(savedCompany))
+    } else {
+      // Se não houver empresa no localStorage, busca a primeira empresa com `isMaster === true`
+      const defaultCompany = companies.find((company) => company.isMaster)
+
+      if (defaultCompany) {
+        saveSelectedCompany(defaultCompany)
+      } else {
+        // Se não houver empresa `isMaster`, redireciona para a página de erro 400
+        // router.push('/error/400')
+      }
+    }
+  }, [companies, router])
 
   return (
-    <Menu>
-      {/* O botão que abre o menu */}
+    <Menu
+      isOpen={isOpen}
+      onOpen={onOpen}
+      onClose={onClose}
+    >
       <MenuButton
         as={Button}
         h={20}
         w='100%'
         borderRadius='md'
         border={'1px solid'}
-        borderColor={theme.colors.background}
-        _focus={{ borderColor: 'gray.800', boxShadow: '0 0 0 1px teal.400' }}
-        padding={3} // Para que o padding seja semelhante ao do MenuItem
-        textAlign='left' // Texto alinhado à esquerda
-        rightIcon={<Icon icon='mdi:chevron-down' />} // Ícone de seta para baixo
+        borderColor='transparent'
+        _focus={{ boxShadow: '0 0 0 1px gray.500' }}
+        padding={3}
+        textAlign='left'
+        rightIcon={
+          isOpen ? (
+            <Icon icon='ion:chevron-collapse' />
+          ) : (
+            <Icon icon='ion:chevron-expand' />
+          )
+        }
       >
-        {/* Conteúdo do botão com Avatar, título e subtítulo */}
         <Stack
           direction='row'
           spacing={5}
           align='center'
         >
-          {selectedCompany.avatarUrl && (
+          {selectedCompany?.avatarUrl && (
             <Avatar
-              size='md'
+              size='lg'
               src={selectedCompany.avatarUrl}
             />
           )}
           <Box>
-            <Text fontWeight='bold'>{selectedCompany.name}</Text>
+            <Text fontWeight='bold'>{selectedCompany?.fullName}</Text>
             <Text
               fontSize='sm'
               color='gray.500'
             >
-              {selectedCompany.subtitle}
+              {selectedCompany?.cnpj}
             </Text>
           </Box>
         </Stack>
       </MenuButton>
 
       {/* A lista de opções */}
-      <MenuList>
+      <MenuList w={250}>
         {companies.map((company) => (
           <MenuItem
             key={company.id}
             onClick={() => setSelectedCompany(company)} // Ao clicar, o nome da empresa é selecionado
-            _hover={{ bg: 'gray.100' }} // Estilo ao passar o mouse
-            _focus={{ bg: 'gray.200' }} // Estilo ao focar
+            _hover={{ bg: 'brand' }} // Estilo ao passar o mouse
+            _focus={{ bg: 'brand' }} // Estilo ao focar
           >
             {/* Exibindo avatar, título e subtítulo */}
             <Stack
@@ -101,16 +112,17 @@ const CompanySelect = () => {
               align='center'
             >
               <Avatar
-                size='sm'
-                src={company.avatarUrl}
+                size='md'
+                name={company.fullName}
+                src={company.avatarUrl ?? undefined}
               />
               <Box>
-                <Text fontWeight='bold'>{company.name}</Text>
+                <Text fontWeight='bold'>{company.fullName}</Text>
                 <Text
                   fontSize='sm'
-                  color='gray.500'
+                  color='text'
                 >
-                  {company.subtitle}
+                  {company.cnpj}
                 </Text>
               </Box>
             </Stack>
