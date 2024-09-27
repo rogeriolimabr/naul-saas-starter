@@ -12,10 +12,12 @@ import {
   Stack,
   Text,
   useDisclosure,
+  VStack,
 } from '@chakra-ui/react'
 import { Icon } from '@iconify-icon/react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { formatCNPJ } from '@/lib/helpers/parsers'
 
 const CompanySelect = ({ companies }: { companies: Company[] }) => {
   const [selectedCompany, setSelectedCompany] = useState<Company | undefined>()
@@ -57,12 +59,14 @@ const CompanySelect = ({ companies }: { companies: Company[] }) => {
     >
       <MenuButton
         as={Button}
-        h={20}
+        h='auto'
         w='100%'
         borderRadius='md'
+        backgroundColor='transparent'
         border={'1px solid'}
-        borderColor='transparent'
-        _focus={{ boxShadow: '0 0 0 1px gray.500' }}
+        borderColor='borderPrimary'
+        _hover={{ backgroundColor: 'background' }}
+        _focus={{ backgroundColor: 'background' }}
         padding={3}
         textAlign='left'
         rightIcon={
@@ -80,32 +84,44 @@ const CompanySelect = ({ companies }: { companies: Company[] }) => {
         >
           {selectedCompany?.avatarUrl && (
             <Avatar
-              size='lg'
+              size='md'
               src={selectedCompany.avatarUrl}
             />
           )}
           <Box>
-            <Text fontWeight='bold'>{selectedCompany?.fullName}</Text>
             <Text
-              fontSize='sm'
-              color='gray.500'
+              fontWeight='semibold'
+              fontSize='smaller'
+              color='text'
+              isTruncated
             >
-              {selectedCompany?.cnpj}
+              {selectedCompany?.shortName}
+            </Text>
+            <Text
+              fontWeight='light'
+              fontSize='x-small'
+              fontFamily='monospace'
+              color='borderPrimary'
+            >
+              {selectedCompany?.cnpj && formatCNPJ(selectedCompany.cnpj, true)}
             </Text>
           </Box>
         </Stack>
       </MenuButton>
 
       {/* A lista de opções */}
-      <MenuList w={250}>
+      <MenuList
+        w={260}
+        background='background'
+      >
         {companies.map((company) => (
           <MenuItem
+            backgroundColor='background'
             key={company.id}
-            onClick={() => setSelectedCompany(company)} // Ao clicar, o nome da empresa é selecionado
-            _hover={{ bg: 'brand' }} // Estilo ao passar o mouse
-            _focus={{ bg: 'brand' }} // Estilo ao focar
+            onClick={() => saveSelectedCompany(company)} // Chama diretamente a função saveSelectedCompany
+            _hover={{ bg: 'brand', color: 'background' }} // Estilo ao passar o mouse
+            _focus={{ bg: 'brand', color: 'background' }} // Estilo ao focar
           >
-            {/* Exibindo avatar, título e subtítulo */}
             <Stack
               direction='row'
               spacing={3}
@@ -116,15 +132,25 @@ const CompanySelect = ({ companies }: { companies: Company[] }) => {
                 name={company.fullName}
                 src={company.avatarUrl ?? undefined}
               />
-              <Box>
-                <Text fontWeight='bold'>{company.fullName}</Text>
+              <VStack
+                maxW={150}
+                alignItems='start'
+                gap={1}
+              >
                 <Text
-                  fontSize='sm'
-                  color='text'
+                  fontWeight='medium'
+                  fontSize='smaller'
+                  textOverflow='ellipsis'
                 >
-                  {company.cnpj}
+                  {company.fullName}
                 </Text>
-              </Box>
+                <Text
+                  fontSize='smaller'
+                  fontFamily='monospace'
+                >
+                  {formatCNPJ(company.cnpj, true)}
+                </Text>
+              </VStack>
             </Stack>
           </MenuItem>
         ))}

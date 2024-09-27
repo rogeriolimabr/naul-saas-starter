@@ -1,14 +1,12 @@
 import type { Metadata, Viewport } from 'next'
 
 import { UIProvider } from '../lib/providers/ui-provider'
-import { fonts } from '../lib/fonts'
 import { ClerkProvider } from '@clerk/nextjs'
-import Scripts from '@/lib/providers/scripts'
 
 export const metadata: Metadata = {
   title: 'Naul SaaS Starter Kit',
   description:
-    'Get started quickly with Next.js, Turso, Zod, Clerk and Stripe.',
+    'Get started quickly with Next.js, Turso, Zod, Clerk, React-Query, React-Table and Stripe.',
 }
 
 export const viewport: Viewport = {
@@ -22,13 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      {/* <Scripts /> */}
       <html
         lang='en'
-        className={fonts.kanit.variable}
       >
         <body className='min-h-[100dvh]'>
-          <Scripts />
           <UIProvider>{children}</UIProvider>
         </body>
       </html>

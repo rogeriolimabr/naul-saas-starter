@@ -21,6 +21,7 @@ export const companies = sqliteTable('companies', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => createId()),
+  shortName: text('short_name', { length: 155 }).notNull().default('ADINT'),
   fullName: text('full_name', { length: 155 }).notNull(),
   email: text('email', { length: 255 }).notNull(),
   cnpj: text('cnpj', { length: 14 }).notNull().unique(),

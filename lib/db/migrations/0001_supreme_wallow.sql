@@ -1,0 +1,1 @@
+ALTER TABLE `companies` ADD `short_name` text(155) DEFAULT 'ADINT' NOT NULL;

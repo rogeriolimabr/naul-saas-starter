@@ -12,8 +12,7 @@ const Logo = (props: Omit<ImageProps, 'src' | 'alt'>) => {
     colorMode === 'light' ? LogoImageLightMode : LogoImageDarkMode
 
   return (
-    <Image
-      src={LogoImage}
+    <LogoImage
       alt='logo'
       {...props}
     />

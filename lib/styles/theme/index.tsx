@@ -18,8 +18,8 @@ const theme = extendTheme({
   config,
   components,
   borders: {
-    '1px': '1px solid var(--stacks-colors-borderPrimary)',
-    dark_1px: '1px solid var(--stacks-colors-borderSecondary)',
+    '1px': '1px solid var(--naul-colors-borderPrimary)',
+    dark_1px: '1px solid var(--naul-colors-borderSecondary)',
   },
   lineHeights: {
     base: 1.15,
@@ -29,7 +29,7 @@ const theme = extendTheme({
   },
   fontWeights: {
     medium: 500,
-    light: 200,
+    light: 300,
     bold: 700,
     extrabold: 800,
   },

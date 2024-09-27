@@ -10,8 +10,8 @@ import { defineTheme } from '../../app/sandbox/editor-config/define-theme';
 import { liftOff } from '../../app/sandbox/editor-config/init';
 import { configLanguage } from '../../app/sandbox/editor-config/language';
 import { claritySyntax } from '../../common/constants/claritySyntax';
-import { Box } from '../Box';
-import { IconButton } from '../IconButton';
+import { Box } from '../custom/Box';
+import { IconButton } from '../custom/IconButton';
 import { clarity } from './clarity';
 
 clarity(Prism);

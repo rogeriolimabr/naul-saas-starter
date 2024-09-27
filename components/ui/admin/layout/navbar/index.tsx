@@ -1,14 +1,37 @@
 'use client'
+import { useLayout } from '@/lib/hooks/useLayout'
+import { Box, IconButton, Stack } from '@chakra-ui/react'
+import { Icon } from '@iconify-icon/react'
 import React from 'react'
 
 const Navbar = () => {
+  const { isSidebarOpen, toggleSidebar } = useLayout()
   return (
-    <div className='h-16 bg-blue-600 text-white flex justify-between items-center px-4'>
-      <h3 className='text-xl'>My App</h3>
-      <div>User Profile</div>
-    </div>
+    <Stack
+      p={6}
+      direction='row'
+      justifyContent='space-between'
+      alignItems='center'
+    >
+      <Box>
+        <IconButton
+          aria-label={''}
+          onClick={() => toggleSidebar()}
+        >
+          <Icon
+            icon={isSidebarOpen ? 'ic:round-menu-open' : 'ic:round-menu'}
+            width={24}
+            height={24}
+          />
+        </IconButton>
+      </Box>
+      <Box>
+        <IconButton aria-label={''}>
+          <Icon icon='ion:menu' />
+        </IconButton>
+      </Box>
+    </Stack>
   )
 }
 
-
-export default Navbar;
+export default Navbar
