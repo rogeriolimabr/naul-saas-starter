@@ -18,9 +18,11 @@ import { Icon } from '@iconify-icon/react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { formatCNPJ } from '@/lib/helpers/parsers'
+import { useLayout } from '@/lib/hooks/useLayout'
 
 const CompanySelect = ({ companies }: { companies: Company[] }) => {
   const [selectedCompany, setSelectedCompany] = useState<Company | undefined>()
+  const { isSidebarOpen } = useLayout()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const router = useRouter()
@@ -70,11 +72,13 @@ const CompanySelect = ({ companies }: { companies: Company[] }) => {
         padding={3}
         textAlign='left'
         rightIcon={
-          isOpen ? (
-            <Icon icon='ion:chevron-collapse' />
-          ) : (
-            <Icon icon='ion:chevron-expand' />
-          )
+          isSidebarOpen ? (
+            isOpen ? (
+              <Icon icon='ion:chevron-collapse' />
+            ) : (
+              <Icon icon='ion:chevron-expand' />
+            )
+          ) : undefined
         }
       >
         <Stack
@@ -88,24 +92,27 @@ const CompanySelect = ({ companies }: { companies: Company[] }) => {
               src={selectedCompany.avatarUrl}
             />
           )}
-          <Box>
-            <Text
-              fontWeight='semibold'
-              fontSize='smaller'
-              color='text'
-              isTruncated
-            >
-              {selectedCompany?.shortName}
-            </Text>
-            <Text
-              fontWeight='light'
-              fontSize='x-small'
-              fontFamily='monospace'
-              color='borderPrimary'
-            >
-              {selectedCompany?.cnpj && formatCNPJ(selectedCompany.cnpj, true)}
-            </Text>
-          </Box>
+          {isSidebarOpen && (
+            <Box>
+              <Text
+                fontWeight='semibold'
+                fontSize='smaller'
+                color='text'
+                isTruncated
+              >
+                {selectedCompany?.shortName}
+              </Text>
+              <Text
+                fontWeight='light'
+                fontSize='x-small'
+                fontFamily='monospace'
+                color='borderPrimary'
+              >
+                {selectedCompany?.cnpj &&
+                  formatCNPJ(selectedCompany.cnpj, true)}
+              </Text>
+            </Box>
+          )}
         </Stack>
       </MenuButton>
 

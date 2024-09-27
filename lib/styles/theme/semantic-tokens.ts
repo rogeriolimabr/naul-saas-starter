@@ -84,6 +84,14 @@ const semanticTokens = {
       default: 'white.100',
       _dark: 'blackAlpha.500',
     },
+    tooltipLabel: {
+      default: 'white',
+      _dark: 'white',
+    },
+    tooltipBackground: {
+      default: 'blackAlpha.700',
+      _dark: 'dark.800',
+    },
   },
 }
 

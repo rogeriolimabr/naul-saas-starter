@@ -32,6 +32,7 @@ export const MenuItems: MenuItem[] = [
   },
   {
     label: 'Cyber Threat Intelligence',
+    href: '/cti',
     icon: (
       <CyberThreatIntelligence
         width={30}

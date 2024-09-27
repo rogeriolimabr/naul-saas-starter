@@ -45,4 +45,5 @@ export const fonts = {
   heading: fontBody.style.fontFamily,
   body: fontBody.style.fontFamily,
   menu: play.style.fontFamily,
+  footer: questrial.style.fontFamily,
 }

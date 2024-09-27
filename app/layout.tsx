@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 
 import { UIProvider } from '../lib/providers/ui-provider'
 import { ClerkProvider } from '@clerk/nextjs'
+import { dark } from '@clerk/themes'
 
 export const metadata: Metadata = {
   title: 'Naul SaaS Starter Kit',
@@ -19,10 +20,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html
-        lang='en'
-      >
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
+      <html lang='en'>
         <body className='min-h-[100dvh]'>
           <UIProvider>{children}</UIProvider>
         </body>

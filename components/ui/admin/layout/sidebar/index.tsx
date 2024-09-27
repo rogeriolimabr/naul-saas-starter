@@ -6,9 +6,9 @@ import {
   Divider,
   Flex,
   Skeleton,
-  useColorMode,
   VStack,
 } from '@chakra-ui/react'
+import { Tooltip } from '@/components/ui/custom/Tooltip'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import Logo from '../common/logo'
@@ -17,10 +17,10 @@ import { getAllCompanies } from '@/lib/db/queries/company'
 import { SidebarFooter } from './footer'
 import { SidebarMenu } from './menu'
 import { InternalArea, MenuItems, OurServices } from '@/lib/config/menu'
+import LogoCollapsed from '../common/logo-collapsed'
 
 const Sidebar = () => {
   const { isSidebarOpen } = useLayout()
-  const { toggleColorMode } = useColorMode()
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['companies'],
@@ -35,7 +35,7 @@ const Sidebar = () => {
       borderEnd={'1px solid'}
       borderColor='borderPrimary'
       backgroundColor='backgroundSecondary'
-      w={isSidebarOpen ? '295px' : '80px'}
+      w={isSidebarOpen ? '295px' : '110px'}
       direction='column'
     >
       <Flex
@@ -48,9 +48,8 @@ const Sidebar = () => {
           cursor: 'pointer',
           transform: 'scale(1.09)', // Aplica o scale ao passar o mouse
         }}
-        onClick={() => toggleColorMode()}
       >
-        <Logo width={200} />
+        {isSidebarOpen ? <Logo width={200} /> : <LogoCollapsed width={80} />}
       </Flex>
       <Divider borderColor='borderPrimary' />
       {data && (
@@ -81,14 +80,22 @@ const Sidebar = () => {
           menuItems={InternalArea}
         />
         <Divider borderColor='borderPrimary' />
-        <Flex
-          justifyContent={'center'}
-          alignItems={'center'}
-          direction='column'
-          gap={4}
-        >
-          <SidebarFooter />
-        </Flex>
+        <Tooltip label='ADINT - Cyber Intelligence Institute' hidden={isSidebarOpen}>
+          <Flex
+            justifyContent={'center'}
+            alignItems={'center'}
+            direction='column'
+            py={6}
+            gap={4}
+            transition='transform 0.2s ease-in-out' // Transição suave
+            _hover={{
+              cursor: 'pointer',
+              transform: 'scale(1.12)', // Aplica o scale ao passar o mouse
+            }}
+          >
+            <SidebarFooter />
+          </Flex>
+        </Tooltip>
       </VStack>
     </Flex>
   )

@@ -1,29 +1,27 @@
 'use client'
+import { Tooltip } from '@/components/ui/custom/Tooltip'
 import { type MenuItem } from '@/lib/config/menu'
-import {
-  Stack,
-  Box,
-  Text,
-  Heading,
-  Collapse,
-} from '@chakra-ui/react'
+import { useLayout } from '@/lib/hooks/useLayout'
+import { Stack, Box, Text, Heading, Collapse } from '@chakra-ui/react'
 import { Icon } from '@iconify-icon/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const SidebarMenuItem = ({
   item,
+  collapsed,
   isOpen,
   onToggle,
 }: {
   item: MenuItem
+  collapsed: boolean
   isOpen?: boolean
   onToggle?: () => void
 }) => {
   const router = useRouter()
 
   const handleClick = () => {
-    if (!item.disabled && item.href) {
+    if (!item.childItems && item.href) {
       router.push(item.href)
     } else if (item.childItems && item.childItems.length > 0 && onToggle) {
       onToggle() // Alterna o estado do menu atual
@@ -35,72 +33,81 @@ const SidebarMenuItem = ({
 
   return (
     <>
-      <Stack
-        direction='row'
-        spacing={3}
-        align='center'
-        roundedEnd={10}
-        p={2}
-        zIndex={0}
-        cursor={!item.disabled ? 'pointer' : 'not-allowed'}
-        position='relative'
-        overflow='hidden'
-        onClick={handleClick}
-        _hover={isChild ? { color: 'brand' } : {}}
-        sx={
-          !isChild
-            ? {
-                '&::before': {
-                  content: `""`,
-                  position: 'absolute',
-                  top: 0,
-                  left: '100%',
-                  width: '100%',
-                  height: '100%',
-                  bg: 'muted',
-                  transition: 'left 0.3s ease',
-                  zIndex: -1,
-                },
-                '&:hover::before': {
-                  left: 0,
-                },
-              }
-            : {}
-        }
+      <Tooltip
+        label={item.label}
+        hidden={!collapsed}
       >
-        {item.icon && (
-          <Box
-            zIndex={0}
-            ml={2}
-            p={1}
-            backgroundColor='boxIcon'
-            rounded='md'
-            color='icon'
-          >
-            {item.icon}
-          </Box>
-        )}
         <Stack
           direction='row'
-          alignItems='center'
-          justifyContent='space-between'
+          spacing={3}
+          justifyContent='center'
+          roundedEnd={10}
+          p={2}
           zIndex={0}
-          width='100%'
+          cursor={!item.disabled ? 'pointer' : 'not-allowed'}
+          position='relative'
+          overflow='hidden'
+          onClick={handleClick}
+          _hover={isChild ? { color: 'brand' } : {}}
+          sx={
+            !isChild
+              ? {
+                  '&::before': {
+                    content: `""`,
+                    position: 'absolute',
+                    top: 0,
+                    left: '100%',
+                    width: '100%',
+                    height: '100%',
+                    bg: 'muted',
+                    transition: 'left 0.3s ease',
+                    zIndex: -1,
+                  },
+                  '&:hover::before': {
+                    left: 0,
+                  },
+                }
+              : {}
+          }
         >
-          <Text
-            fontWeight='medium'
-            fontSize='sm'
-            textAlign='left'
-            textOverflow='ellipsis'
-            fontFamily='menu'
-          >
-            {item.label}
-          </Text>
-          {hasSubItems && (
-            <Icon icon={isOpen ? 'ion:chevron-up' : 'ion:chevron-down'} />
+          {item.icon ? (
+            <Box
+              zIndex={0}
+              ml={2}
+              p={1}
+              backgroundColor='boxIcon'
+              rounded='md'
+              color='icon'
+            >
+              {item.icon}
+            </Box>
+          ) : (
+            <Icon icon='eva:arrow-right-fill' color="invert" />
+          )}
+          {!collapsed && (
+            <Stack
+              direction='row'
+              alignItems='center'
+              justifyContent='space-between'
+              zIndex={0}
+              width='100%'
+            >
+              <Text
+                fontWeight='medium'
+                fontSize='sm'
+                textAlign='left'
+                textOverflow='ellipsis'
+                fontFamily='menu'
+              >
+                {item.label}
+              </Text>
+              {hasSubItems && (
+                <Icon icon={isOpen ? 'ion:chevron-up' : 'ion:chevron-down'} />
+              )}
+            </Stack>
           )}
         </Stack>
-      </Stack>
+      </Tooltip>
 
       {hasSubItems && (
         <Collapse
@@ -108,7 +115,7 @@ const SidebarMenuItem = ({
           animateOpacity
         >
           <Stack
-            pl={12}
+            pl={collapsed ? 2 : 10}
             spacing={2}
             mt={2}
             borderLeftWidth='2px'
@@ -116,6 +123,7 @@ const SidebarMenuItem = ({
           >
             {item.childItems?.map((subItem) => (
               <SidebarMenuItem
+                collapsed={collapsed}
                 key={subItem.label}
                 item={subItem}
               />
@@ -135,6 +143,7 @@ export const SidebarMenu = ({
   menuItems: MenuItem[]
 }) => {
   const [openItem, setOpenItem] = useState<string | null>(null)
+  const { isSidebarOpen } = useLayout()
 
   const handleMenuToggle = (label: string) => {
     setOpenItem((prev) => (prev === label ? null : label)) // Alterna o item aberto
@@ -153,6 +162,7 @@ export const SidebarMenu = ({
         color='muted'
         textAlign='center'
         textTransform='uppercase'
+        hidden={!isSidebarOpen}
       >
         {title}
       </Heading>
@@ -160,6 +170,7 @@ export const SidebarMenu = ({
         <SidebarMenuItem
           key={item.label}
           item={item}
+          collapsed={!isSidebarOpen}
           isOpen={openItem === item.label} // Verifica se este item está aberto
           onToggle={() => handleMenuToggle(item.label)} // Define qual item está aberto
         />

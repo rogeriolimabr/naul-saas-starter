@@ -1,11 +1,15 @@
 'use client'
-import { useLayout } from '@/lib/hooks/useLayout'
-import { Box, IconButton, Stack } from '@chakra-ui/react'
-import { Icon } from '@iconify-icon/react'
+import { Stack } from '@chakra-ui/react'
 import React from 'react'
+import ToggleSidebar from './components/toggle-sidebar'
+import GlobalSearch from './components/search'
+import Breadcrumbs from './components/breadcrumbs'
+import ToggleTheme from './components/toggle-theme'
+import Notifications from './components/notifications'
+import Messages from './components/messages'
+import { Profile } from './components/profile'
 
 const Navbar = () => {
-  const { isSidebarOpen, toggleSidebar } = useLayout()
   return (
     <Stack
       p={6}
@@ -13,23 +17,27 @@ const Navbar = () => {
       justifyContent='space-between'
       alignItems='center'
     >
-      <Box>
-        <IconButton
-          aria-label={''}
-          onClick={() => toggleSidebar()}
-        >
-          <Icon
-            icon={isSidebarOpen ? 'ic:round-menu-open' : 'ic:round-menu'}
-            width={24}
-            height={24}
-          />
-        </IconButton>
-      </Box>
-      <Box>
-        <IconButton aria-label={''}>
-          <Icon icon='ion:menu' />
-        </IconButton>
-      </Box>
+      <Stack
+        direction='row'
+        w='100%'
+        alignItems='center'
+        gap={4}
+      >
+        <ToggleSidebar />
+        <Breadcrumbs />
+      </Stack>
+      <Stack
+        direction='row'
+        w='100%'
+        justifyContent='end'
+        gap={2}
+      >
+        <GlobalSearch />
+        <Messages />
+        <Notifications />
+        <ToggleTheme />
+        <Profile />
+      </Stack>
     </Stack>
   )
 }
