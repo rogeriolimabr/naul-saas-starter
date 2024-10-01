@@ -74,7 +74,7 @@ export const LastDarkWebNews = () => {
         flexDirection='row'
         justifyContent='space-between'
       >
-        <Text fontSize={14}>Recent DarkWeb News</Text>
+        <Text fontSize={14}>Recent Dark Web News</Text>
       </CardHeader>
       <CardBody
         maxH={395}
