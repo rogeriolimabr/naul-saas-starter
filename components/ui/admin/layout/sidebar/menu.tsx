@@ -59,8 +59,9 @@ const SidebarMenuItem = ({
                     left: '100%',
                     width: '100%',
                     height: '100%',
-                    bg: 'muted',
-                    transition: 'left 0.3s ease',
+                    bg: 'background', // Gradiente que começa em #f9d58f e muda para transparente
+                    transition: 'left 0.2s ease',
+                    borderBottom: '1px solid #ed9b0f',
                     zIndex: -1,
                   },
                   '&:hover::before': {
@@ -82,7 +83,10 @@ const SidebarMenuItem = ({
               {item.icon}
             </Box>
           ) : (
-            <Icon icon='eva:arrow-right-fill' color="invert" />
+            <Icon
+              icon='eva:arrow-right-fill'
+              color='invert'
+            />
           )}
           {!collapsed && (
             <Stack

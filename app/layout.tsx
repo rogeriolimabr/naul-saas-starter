@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { UIProvider } from '../lib/providers/ui-provider'
 import { ClerkProvider } from '@clerk/nextjs'
 import { dark } from '@clerk/themes'
+import '@/lib/styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'Naul SaaS Starter Kit',
