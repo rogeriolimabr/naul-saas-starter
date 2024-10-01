@@ -26,7 +26,7 @@ export default function RootLayout({
         baseTheme: dark,
       }}
     >
-      <html lang='en'>
+      <html lang='en' suppressHydrationWarning>
         <body className='min-h-[100dvh]'>
           <UIProvider>{children}</UIProvider>
         </body>
