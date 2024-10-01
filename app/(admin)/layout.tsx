@@ -13,22 +13,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <LayoutProvider>
+        <Box
+          display='flex'
+          flexDirection='row'
+          minHeight='100vh'
+        >
+          <Sidebar />
           <Box
             display='flex'
-            flexDirection='row'
-            minHeight='100vh'
+            flexDirection='column'
+            flex={1}
           >
-            <Sidebar />
+            <Navbar />
             <Box
-              display='flex'
-              flexDirection='column'
-              flex={1}
+              flexGrow={1}
+              mx={4}
             >
-              <Navbar />
-              <Box flexGrow={1}>{children}</Box>
-              <Footer />
+              {children}
             </Box>
+            <Footer />
           </Box>
+        </Box>
       </LayoutProvider>
     </QueryClientProvider>
   )

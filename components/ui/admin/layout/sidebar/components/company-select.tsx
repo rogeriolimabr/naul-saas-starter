@@ -106,7 +106,7 @@ const CompanySelect = ({ companies }: { companies: Company[] }) => {
                 fontWeight='light'
                 fontSize='x-small'
                 fontFamily='monospace'
-                color='borderPrimary'
+                color='muted'
               >
                 {selectedCompany?.cnpj &&
                   formatCNPJ(selectedCompany.cnpj, true)}
