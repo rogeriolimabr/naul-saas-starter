@@ -1,1 +1,4 @@
 /* Global Styling here */
+.apexcharts-radialbar {
+    transform: scale(2.4);
+}

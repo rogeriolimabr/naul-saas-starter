@@ -5,6 +5,7 @@ import {
   Play,
   Questrial,
   Rubik,
+  Lexend_Deca
 } from 'next/font/google'
 
 export const fontBody = FontBody({
@@ -37,7 +38,13 @@ const questrial = Questrial({
 
 const play = Play({
   subsets: ['latin'],
-  variable: '--font-questrial',
+  variable: '--font-play',
+  weight: ['400'],
+})
+
+const lexend = Lexend_Deca({
+  subsets: ['latin'],
+  variable: '--font-lexend',
   weight: ['400'],
 })
 
@@ -46,4 +53,7 @@ export const fonts = {
   body: fontBody.style.fontFamily,
   menu: play.style.fontFamily,
   footer: questrial.style.fontFamily,
+  title: lexend.style.fontFamily,
+  number: kanit.style.fontFamily,
+  label: manrope.style.fontFamily,
 }

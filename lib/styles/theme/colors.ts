@@ -6,7 +6,7 @@ const extendedColors: DeepPartial<
 > = {
   brand: {
     100: '#f9d58f', // Cor mais clara
-    200: '#f3c76d',
+    200: '#ed9b0f',
     300: '#edb84c',
     400: '#ed9b0f', // Cor base
     500: '#ed9b0f', // A mesma cor base para o 500
