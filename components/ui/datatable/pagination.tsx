@@ -1,53 +1,61 @@
-'use client';
+'use client'
 
-import {
-	ChevronLeftIcon,
-	ChevronRightIcon
-} from 'lucide-react';
-import { type Table } from '@tanstack/react-table';
-
-import { Button } from '@/components/ui/button';
-
+import { type Table } from '@tanstack/react-table'
+import { Button, Flex, HStack, Text } from '@chakra-ui/react'
+import { Icon } from '@iconify-icon/react' // Importando o Iconify
 
 interface PaginationProps<TData> {
-	table: Table<TData>;
+  table: Table<TData>
 }
 
-export function Pagination<TData>({
-	table
-}: PaginationProps<TData>) {
-	return (
-		<div className="flex justify-between items-center space-x-2">
-			<Button
-				variant="outline"
-				className="flex h-8 justify-between items-center"
-				onClick={() => table.previousPage()}
-				disabled={!table.getCanPreviousPage()}
-			>
+export function Pagination<TData>({ table }: PaginationProps<TData>) {
+  return (
+    <HStack
+      justify='space-between'
+      spacing={2}
+    >
+      <Button
+        as={Flex}
+        alignItems='center'
+        justifyContent='space-between'
+		gap={3}
+        variant='outline'
+        onClick={() => table.previousPage()}
+        disabled={!table.getCanPreviousPage()}
+      >
+        <Icon
+          icon='typcn:arrow-left-thick'
+          width={12}
+          height={12}
+        />
+        <Text fontSize={12}>Previous</Text>
+      </Button>
 
-				<ChevronLeftIcon className="h-5 w-5 pr-2" />
-				<span className='text-[13px]'>Atrás</span>
-			</Button>
+      <Button
+        variant='ghost'
+        disabled
+		fontSize={12}
+      >
+        Page {table.getState().pagination.pageIndex + 1} of{' '}
+        {table.getPageCount() ?? 1}
+      </Button>
 
-			<Button
-				variant="ghost"
-				className="flex h-8 justify-between items-center"
-				disabled
-			>
-				Pág. {table.getState().pagination.pageIndex + 1} of {table.getPageCount() ?? 1}
-			</Button>
-			<Button
-				variant="outline"
-				className="flex h-8 justify-between items-center"
-				onClick={() => table.nextPage()}
-				disabled={!table.getCanNextPage()}
-			>
-				<span className="text-[13px]">
-					Siguiente
-				</span>
-				<ChevronRightIcon className="h-5 w-5 pl-2" />
-			</Button>
-
-		</div>
-	);
+      <Button
+        as={Flex}
+        alignItems='center'
+        justifyContent='space-between'
+		gap={3}
+        variant='outline'
+        onClick={() => table.nextPage()}
+        disabled={!table.getCanNextPage()}
+      >
+        <Text fontSize={12}>Next</Text>
+        <Icon
+          icon='typcn:arrow-right-thick'
+          width={12}
+          height={12}
+        />
+      </Button>
+    </HStack>
+  )
 }

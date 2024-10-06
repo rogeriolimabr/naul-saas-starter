@@ -95,7 +95,7 @@ function CyberThreatIntelligence(props: React.SVGProps<SVGSVGElement>) {
         cy={30}
         r={16}
         fill='none'
-        stroke='#fcbb2d'
+        stroke='#eb8f1e'
         strokeMiterlimit={10}
         strokeWidth={8}
       />

@@ -12,12 +12,16 @@ import {
   User,
   Company,
   companies,
+  Takedown,
+  takedowns,
+  Tracking,
+  trackings,
 } from './schema'
 import { hash } from '@node-rs/argon2'
 import { faker } from '@faker-js/faker'
 import dotenv from 'dotenv'
 
-dotenv.config({ path: '.env'})
+dotenv.config({ path: '.env' })
 
 async function seed() {
   const permissionData: Permission = {
@@ -98,6 +102,7 @@ async function seed() {
   const companiesData: Company[] = [
     {
       id: createId(),
+      shortName: 'ADINT',
       fullName: 'ADINT - Cyber Institute Intelligence',
       avatarUrl: faker.image.avatarGitHub(),
       createdAt: new Date(),
@@ -110,6 +115,7 @@ async function seed() {
     },
     {
       id: createId(),
+      shortName: 'ADINT',
       fullName: 'ADINT - Cyber Security',
       avatarUrl: faker.image.avatarGitHub(),
       createdAt: new Date(),
@@ -127,7 +133,92 @@ async function seed() {
   await db.insert(companies).values(companiesData)
 }
 
-seed()
+async function takedownSeed() {
+  const takedownsData: Takedown[] = []
+
+  let i = 0
+  while (i < 15) {
+    takedownsData.push({
+      id: createId(),
+      name: faker.lorem.words(3),
+      description: faker.lorem.words(5),
+      frequency: faker.helpers.arrayElement([
+        'YEARLY',
+        'MONTHLY',
+        'WEEKLY',
+        'DAILY',
+      ]),
+      priority: faker.helpers.arrayElement([
+        'CRITICAL',
+        'HIGH',
+        'MEDIUM',
+        'LOW',
+      ]),
+      status: faker.helpers.arrayElement(['ACTIVE', 'INACTIVE']),
+      category: faker.helpers.arrayElement(['APP', 'URL', 'SOCIALMEDIA']),
+      origin: faker.helpers.arrayElement([
+        'LINKEDIN',
+        'INSTAGRAM',
+        'FACEBOOK',
+        'OTHERS',
+      ]),
+      url: faker.internet.url(),
+      comments: faker.lorem.paragraphs(2),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    i++
+  }
+
+  console.log('Creating takedowns...')
+  await db.insert(takedowns).values(takedownsData)
+}
+
+async function trackingsSeed() {
+  const trackingsData: Tracking[] = []
+
+  let i = 0
+  while (i < 25) {
+    trackingsData.push({
+      id: createId(),
+      name: faker.lorem.words(3),
+      description: faker.lorem.words(5),
+      frequency: faker.helpers.arrayElement([
+        'YEARLY',
+        'MONTHLY',
+        'WEEKLY',
+        'DAILY',
+      ]),
+      priority: faker.helpers.arrayElement([
+        'CRITICAL',
+        'HIGH',
+        'MEDIUM',
+        'LOW',
+      ]),
+      status: faker.helpers.arrayElement(['ACTIVE', 'INACTIVE']),
+      category: faker.helpers.arrayElement([
+        'SURFACEWEB',
+        'DEEPWEB',
+        'SOCIALMEDIA',
+        'KEYWORDS',
+        'IP',
+        'DATALEAKS',
+      ]),
+      aux_table: 'bp_tracking_credentials',
+      comments: faker.lorem.paragraphs(2),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+
+    i++
+  }
+
+  console.log('Creating trackings...')
+  await db.insert(trackings).values(trackingsData)
+}
+
+takedownSeed()
   .catch((error) => {
     console.error('Seed process failed:', error)
     process.exit(1)

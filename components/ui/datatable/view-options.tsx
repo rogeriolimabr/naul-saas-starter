@@ -1,64 +1,70 @@
-'use client';
+'use client'
 
-import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
-import { type Table } from '@tanstack/react-table';
-
-import { Button } from '@/components/ui/button';
+import { type Table } from '@tanstack/react-table'
 import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuLabel,
-	DropdownMenuSeparator
-} from '@/components/ui/dropdown-menu';
-import { Mixer } from '@/components/icons';
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  Checkbox,
+  Text,
+  Flex,
+} from '@chakra-ui/react'
+import { Icon } from '@iconify-icon/react'
 
 interface ViewOptionsProps<TData> {
-	table: Table<TData>;
+  table: Table<TData>
 }
 
-export function ViewOptions<TData>({
-	table
-}: ViewOptionsProps<TData>) {
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button
-					variant="outline"
-					size="lg"
-					className="ml-auto hidden h-10 lg:flex"
-				>
-					<div className='mr-3 h-4 w-4'>
-						<Mixer width={19} height={19} className='text-black' />
-					</div>
-					Visualizar
-				</Button>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end" className="w-[150px]">
-				<DropdownMenuLabel>Control de columnas</DropdownMenuLabel>
-				<DropdownMenuSeparator />
-				{table
-					.getAllColumns()
-					.filter(
-						(column) =>
-							typeof column.accessorFn !== 'undefined' &&
-							column.getCanHide()
-					)
-					.map((column) => {
-						return (
-							<DropdownMenuCheckboxItem
-								key={column.id}
-								className="capitalize"
-								checked={column.getIsVisible()}
-								onCheckedChange={(value) =>
-									column.toggleVisibility(Boolean(value))
-								}
-							>
-								{column.id}
-							</DropdownMenuCheckboxItem>
-						);
-					})}
-			</DropdownMenuContent>
-		</DropdownMenu>
-	);
+export function ViewOptions<TData>({ table }: ViewOptionsProps<TData>) {
+  return (
+    <Menu>
+      <MenuButton
+        as={Button}
+        variant='outline'
+        size='lg'
+        ml='auto'
+        h='10'
+      >
+        <Flex alignItems='center'>
+          <Icon
+            icon='ph:eye-duotone'
+            width={19}
+            height={19}
+          />
+        </Flex>
+      </MenuButton>
+      <MenuList>
+        <Text
+          fontWeight='bold'
+          px={4}
+        >
+          Columns Visibility
+        </Text>
+        <MenuDivider />
+        {table
+          .getAllColumns()
+          .filter(
+            (column) =>
+              typeof column.accessorFn !== 'undefined' && column.getCanHide()
+          )
+          .map((column) => (
+            <MenuItem
+              key={column.id}
+              as={Flex}
+              alignItems='center'
+            >
+              <Checkbox
+                isChecked={column.getIsVisible()}
+                onChange={(e) => column.toggleVisibility(e.target.checked)}
+                mr={2}
+              />
+              <Text>{column.id}</Text>
+            </MenuItem>
+          ))}
+      </MenuList>
+    </Menu>
+  )
 }
