@@ -14,6 +14,7 @@ export const takedowns = sqliteTable('bp_takedowns', {
   origin: text('origin', { length: 50 }).notNull(), // Surface Web, Play Store, App Store, LinkedIn
   url: text('url', { length: 50 }).notNull(), // url takedown
   comments: text('comments', { length: 500 }),
+  createdBy: text('created_by', { length: 50 }).notNull(),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .$defaultFn(() => new Date())
     .notNull(),

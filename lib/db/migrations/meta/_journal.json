@@ -8,6 +8,13 @@
       "when": 1728173932179,
       "tag": "0000_reflective_lady_mastermind",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1728270058480,
+      "tag": "0001_glossy_the_captain",
+      "breakpoints": true
     }
   ]
 }

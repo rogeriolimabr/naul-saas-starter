@@ -31,7 +31,7 @@ const Navbar = () => {
         direction='row'
         w='100%'
         justifyContent='end'
-        gap={2}
+        gap={3}
       >
         <GlobalSearch />
         <Messages />

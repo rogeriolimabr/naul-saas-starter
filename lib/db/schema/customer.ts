@@ -8,6 +8,9 @@ export const holdings = sqliteTable('holding', {
     .$defaultFn(() => createId()),
   name: text('name', { length: 100 }).notNull(),
   status: text('status', { length: 20 }).notNull().default('ACTIVE'),
+  adminId: text('admin_id'),
+  plan: text('plan', { length: 20 }).notNull().default('FREE'),
+  planExpiresAt: integer('plan_expires_at', { mode: 'timestamp' }),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .$defaultFn(() => new Date())
     .notNull(),

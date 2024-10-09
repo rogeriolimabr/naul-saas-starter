@@ -1,15 +1,8 @@
 import { createId } from '@paralleldrive/cuid2'
 import { db } from './drizzle'
 import {
-  users,
   type Holding,
-  Permission,
-  Role,
-  permissions,
-  roles,
-  rolePermissions,
   holdings,
-  User,
   Company,
   companies,
   Takedown,
@@ -17,87 +10,32 @@ import {
   Tracking,
   trackings,
 } from './schema'
-import { hash } from '@node-rs/argon2'
 import { faker } from '@faker-js/faker'
 import dotenv from 'dotenv'
+import { User } from '@clerk/nextjs/server'
 
 dotenv.config({ path: '.env' })
 
 async function seed() {
-  const permissionData: Permission = {
-    id: createId(),
-    name: 'all_permissions',
-    routes: JSON.stringify(['*']),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  }
+  const planExpiresAt = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
 
-  const roleAdmin: Role = {
-    id: createId(),
-    name: 'admin',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  }
-
-  const roleUser: Role = {
-    id: createId(),
-    name: 'user',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  }
-
-  console.log('Seeding...')
-
-  console.log('Creating permissions...')
-  const [permission] = await db
-    .insert(permissions)
-    .values(permissionData)
-    .returning()
-
-  console.log('Creating roles...')
-  await db.insert(roles).values([roleAdmin, roleUser])
-
-  console.log('Creating role permissions...')
-  await db.insert(rolePermissions).values([
-    {
-      roleId: roleAdmin.id,
-      permissionId: permission.id,
-    },
-    {
-      roleId: roleUser.id,
-      permissionId: permission.id,
-    },
-  ])
 
   const holdingData: Holding = {
     id: createId(),
     name: 'ADINT - Cyber Intelligence Institute',
     status: 'ACTIVE',
+    plan: 'PRO',
+    planExpiresAt,
+    adminId: createId(),
     createdAt: new Date(),
     updatedAt: new Date(),
   }
 
   console.log('Creating holding...')
+  
   const [holding] = await db.insert(holdings).values(holdingData).returning()
 
-  console.log('Creating initial user...')
-  const userData: User = {
-    id: createId(),
-    name: 'Rogerio da Rocha Cezar Lima',
-    email: 'me@rogeriolima.io',
-    holdingId: holding.id,
-    passwordHash: await hash('KKK@1991'),
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    deletedAt: null,
-  }
-
-  const [user] = await db.insert(users).values(userData).returning()
-
   console.log('Initial user created.')
-
-  console.log('E-mail: ' + user.email)
-  console.log('Password: KKK@1991')
 
   const companiesData: Company[] = [
     {
@@ -164,6 +102,7 @@ async function takedownSeed() {
       ]),
       url: faker.internet.url(),
       comments: faker.lorem.paragraphs(2),
+      createdBy: createId(),
       createdAt: new Date(),
       updatedAt: new Date(),
     })
@@ -218,7 +157,7 @@ async function trackingsSeed() {
   await db.insert(trackings).values(trackingsData)
 }
 
-takedownSeed()
+seed()
   .catch((error) => {
     console.error('Seed process failed:', error)
     process.exit(1)

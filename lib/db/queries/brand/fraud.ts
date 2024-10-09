@@ -126,3 +126,8 @@ export async function getAllFraudProtection(
     sorting: sorting || [],
   } as ResponseTable<Tracking>
 }
+
+export async function getFraudProtection(id: string): Promise<Tracking | null> {
+  const result = await db.select().from(trackings).where(eq(trackings.id, id))
+  return result[0] || null
+}

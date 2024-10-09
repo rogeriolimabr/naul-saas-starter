@@ -54,7 +54,7 @@ export const TakedownResolutionRate = (props: { value: number }) => {
       type: 'gradient',
       gradient: {
         shade: 'light',
-        type: 'horizontal', // Pode ser linear, radial, ou horizontal
+        type: 'radial', // Pode ser linear, radial, ou horizontal
         shadeIntensity: 0.5,
         inverseColors: false,
         opacityFrom: 1,
@@ -63,7 +63,7 @@ export const TakedownResolutionRate = (props: { value: number }) => {
         colorStops: [
           {
             offset: 0, // Início no verde (0%)
-            color: '#23A978', // Verde
+            color: '#D45453', // Verde D45453
             opacity: 1,
           },
           {
@@ -73,7 +73,7 @@ export const TakedownResolutionRate = (props: { value: number }) => {
           },
           {
             offset: 100, // Fim no vermelho (100%)
-            color: '#D45453', // Vermelho
+            color: '#23A978', // Vermelho 23A978
             opacity: 1,
           },
         ],
