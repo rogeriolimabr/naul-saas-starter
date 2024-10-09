@@ -22,7 +22,7 @@ const SidebarMenuItem = ({
 
   const handleClick = () => {
     if (!item.childItems && item.href) {
-      router.push(item.href)
+      !item.disabled ? router.push(item.href) : undefined
     } else if (item.childItems && item.childItems.length > 0 && onToggle) {
       onToggle() // Alterna o estado do menu atual
     }

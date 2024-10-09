@@ -11,12 +11,12 @@ export async function getAllTakedowns(
   const { globalSearch, sorting, pagination, filters } = options
 
   type SortableFields = 'name' | 'url' | 'status' | 'createdAt' | 'updatedAt'
-  type FilteredFields = 'name' | 'status' | 'type' | 'origin'
+  type FilteredFields = 'name' | 'status' | 'category' | 'origin'
 
   const filterMapping: Record<FilteredFields, any> = {
     name: takedowns.name,
     status: takedowns.status,
-    type: takedowns.type,
+    category: takedowns.category,
     origin: takedowns.origin,
   }
 
@@ -90,7 +90,7 @@ export async function getAllTakedowns(
     const hasNextPage = pageIndex < totalPages - 1
 
     return {
-      data: results as Takedown[], // Resultado da query
+      records: results as Takedown[], // Resultado da query
       pagination: {
         pageIndex,
         pageSize,
@@ -107,7 +107,7 @@ export async function getAllTakedowns(
   const results = await query
 
   return {
-    data: results as Takedown[],
+    records: results as Takedown[],
     pagination: {
       pageIndex: 0,
       pageSize: results.length,
