@@ -111,7 +111,7 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'Hunter Devices',
         href: '/ics/devices',
-        disabled: true,
+        disabled: false,
       },
       {
         label: 'OT Cyber Threats',
