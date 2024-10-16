@@ -106,7 +106,7 @@ export const GeopoliticalRiskLevel = (props: { value: number }) => {
         flexDirection='row'
         justifyContent='space-between'
       >
-        <Text fontSize={14}>Geopolitical Risk Level</Text>
+        <Text fontSize={14}>Risk Level</Text>
       </CardHeader>
       <CardBody maxH='140px'>
         <Chart

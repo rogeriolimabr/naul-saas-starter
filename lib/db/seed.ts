@@ -9,10 +9,13 @@ import {
   takedowns,
   Tracking,
   trackings,
+  Device,
+  devices,
 } from './schema'
 import { faker } from '@faker-js/faker'
 import dotenv from 'dotenv'
-import { User } from '@clerk/nextjs/server'
+import path from 'path'
+import { promises as fs } from 'fs';
 
 dotenv.config({ path: '.env' })
 
@@ -157,7 +160,45 @@ async function trackingsSeed() {
   await db.insert(trackings).values(trackingsData)
 }
 
-seed()
+
+async function devicesSeed() {
+  const filePath = path.join(__dirname, 'data', 'devices.json');
+
+  try {
+    // Ler o arquivo JSON
+    const data = await fs.readFile(filePath, 'utf-8');
+    const rawDevicesData = JSON.parse(data); // Parse para array de objetos brutos
+
+    const devicesData: Device[] = rawDevicesData.map((device: any) => ({
+      id: device.id,
+      name: device.name,
+      status: device.status,
+      vendor: device.vendor,
+      product: device.product,
+      dork: device.dork,
+      version: device.version || null,
+      comments: device.details || null,
+      createdAt: new Date(device.created_at), // Converter para Date
+      updatedAt: device.updated_at ? new Date(device.updated_at) : null, // Converter para Date ou null
+    }));
+
+    // Verificar se há dados
+    if (!devicesData || devicesData.length === 0) {
+      console.log('No devices data found in devices.json');
+      return;
+    }
+
+    // Inserir dados no banco de dados
+    console.log('Inserting devices...');
+    await db.insert(devices).values(devicesData);
+
+    console.log('Devices inserted successfully!');
+  } catch (error) {
+    console.error('Error seeding devices:', error);
+  }
+}
+
+devicesSeed()
   .catch((error) => {
     console.error('Seed process failed:', error)
     process.exit(1)

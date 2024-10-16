@@ -15,6 +15,13 @@
       "when": 1728270058480,
       "tag": "0001_glossy_the_captain",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1728956216079,
+      "tag": "0002_premium_toxin",
+      "breakpoints": true
     }
   ]
 }

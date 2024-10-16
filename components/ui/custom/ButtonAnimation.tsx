@@ -1,6 +1,5 @@
 'use client'
 
-import { Link } from '@chakra-ui/next-js'
 import { Box, Flex, forwardRef } from '@chakra-ui/react'
 
 import { Button, ButtonProps } from './Button'
@@ -18,7 +17,6 @@ export const ButtonAnimation = forwardRef<ButtonAnimation, 'a'>(
 
     return (
       <Button
-        as={Link}
         variant='solid'
         colorScheme={colorScheme}
         color='white'

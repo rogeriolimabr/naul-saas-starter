@@ -49,42 +49,42 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'Threat Actor Tracking',
         href: '/cti/threat_actors',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Threat Hunting',
         href: '/cti/threat_hunting',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Malware Intelligence',
         href: '/cti/malware_intelligence',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'IOC / IOA Management',
         href: '/cti/ioc',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Breach Datasets',
         href: '/cti/breach',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Dark Web News',
         href: '/cti/darkweb/news',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Offensive Cyber Operations',
         href: '/cti/cyberattacks',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Geopolitical Intelligence',
         href: '/cti/geopolitical',
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -101,12 +101,12 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'ICS Overview',
         href: '/ics/overview',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Threat Detection',
         href: '/ics/threat_detection',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Hunter Devices',
@@ -116,7 +116,7 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'OT Cyber Threats',
         href: '/ics/ot_threats',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Mitre Attack',
@@ -126,7 +126,7 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'Risk Analysis',
         href: '/ics/risk_analysis',
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -143,22 +143,22 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'Attack Surface Overview',
         href: '/asm/overview',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Reconnaissance',
-        disabled: false,
+        disabled: true,
         href: '/asm/reconnaissance',
       },
       {
         label: 'Digital Asset Monitoring',
         href: '/asm/asset_monitor',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Vulnerability Detection',
         href: '/asm/vuln',
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -185,12 +185,12 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'VIP Protection',
         href: '/bp/vip',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Takedown',
         href: '/bp/takedown',
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -207,7 +207,7 @@ export const MenuItems: MenuItem[] = [
       {
         label: 'SCP Overview',
         href: '/scp/overview',
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -232,7 +232,7 @@ export const OurServices: MenuItem[] = [
       {
         label: 'SOC Intelligence',
         href: '/ondemand/soc',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Pentest',
@@ -276,12 +276,12 @@ export const OurServices: MenuItem[] = [
       {
         label: 'My Tickets',
         href: '/support/my',
-        disabled: false,
+        disabled: true,
       },
       {
         label: 'Open Ticket',
         href: '/support/new',
-        disabled: false,
+        disabled: true,
       },
     ],
   },
@@ -297,7 +297,7 @@ export const InternalArea: MenuItem[] = [
       />
     ),
     href: '/analyst',
-    disabled: false,
+    disabled: true,
   },
   {
     label: 'System Settings',
@@ -308,7 +308,7 @@ export const InternalArea: MenuItem[] = [
       />
     ),
     href: '/settings',
-    disabled: false,
+    disabled: true,
   },
 ]
 
