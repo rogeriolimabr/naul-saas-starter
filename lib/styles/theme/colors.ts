@@ -6,7 +6,7 @@ const extendedColors: DeepPartial<
 > = {
   brand: {
     100: '#f9d58f', // Cor mais clara
-    200: '#f3c76d',
+    200: '#ed9b0f',
     300: '#edb84c',
     400: '#ed9b0f', // Cor base
     500: '#ed9b0f', // A mesma cor base para o 500
@@ -48,6 +48,14 @@ const extendedColors: DeepPartial<
     200: '#E9F6EC',
     300: '#D9EDD4',
     400: '#9CCCAC',
+    500: '#23A978',
+    600: '#008051',
+  },
+  success: {
+    100: '#23A978',
+    200: '#23A978',
+    300: '#23A978',
+    400: '#23A978',
     500: '#23A978',
     600: '#008051',
   },

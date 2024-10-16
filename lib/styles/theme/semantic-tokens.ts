@@ -2,7 +2,7 @@ const semanticTokens = {
   colors: {
     brand: {
       default: 'brand.500',
-      _dark: 'brand.400',
+      _dark: 'brand.500',
     },
     borderPrimary: {
       default: 'slate.300',
@@ -33,8 +33,8 @@ const semanticTokens = {
       _dark: 'slate.100',
     },
     muted: {
-      default: 'gray.300',
-      _dark: 'dark.700',
+      default: 'gray.500',
+      _dark: 'gray.500',
     },
     textSubdued: {
       default: 'slate.700',
@@ -92,6 +92,10 @@ const semanticTokens = {
       default: 'blackAlpha.700',
       _dark: 'dark.800',
     },
+    headingText: {
+      default: 'blackAlpha.800',
+      _dark: 'whiteAlpha.800',
+    }
   },
 }
 

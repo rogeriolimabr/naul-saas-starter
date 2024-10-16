@@ -10,7 +10,7 @@ function OnDemand(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <style>{'.cls-1{fill:currentColor}.cls-2{fill:#c2940a}'}</style>
+        <style>{'.cls-1{fill:currentColor}.cls-2{fill:#eb8f1e}'}</style>
       </defs>
       <g
         data-name='18. Bar Graphic'

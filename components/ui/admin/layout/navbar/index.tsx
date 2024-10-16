@@ -1,4 +1,5 @@
 'use client'
+
 import { Stack } from '@chakra-ui/react'
 import React from 'react'
 import ToggleSidebar from './components/toggle-sidebar'
@@ -7,7 +8,7 @@ import Breadcrumbs from './components/breadcrumbs'
 import ToggleTheme from './components/toggle-theme'
 import Notifications from './components/notifications'
 import Messages from './components/messages'
-import { Profile } from './components/profile'
+import { SignedIn, UserButton } from '@clerk/nextjs'
 
 const Navbar = () => {
   return (
@@ -30,13 +31,15 @@ const Navbar = () => {
         direction='row'
         w='100%'
         justifyContent='end'
-        gap={2}
+        gap={3}
       >
         <GlobalSearch />
         <Messages />
         <Notifications />
         <ToggleTheme />
-        <Profile />
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </Stack>
     </Stack>
   )

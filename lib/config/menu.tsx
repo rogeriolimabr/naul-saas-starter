@@ -177,6 +177,21 @@ export const MenuItems: MenuItem[] = [
         href: '/bp/overview',
         disabled: false,
       },
+      {
+        label: 'Fraud Protection',
+        href: '/bp/fraud',
+        disabled: false,
+      },
+      {
+        label: 'VIP Protection',
+        href: '/bp/vip',
+        disabled: false,
+      },
+      {
+        label: 'Takedown',
+        href: '/bp/takedown',
+        disabled: false,
+      },
     ],
   },
   {

@@ -10,26 +10,31 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const queryClient = new QueryClient()
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <LayoutProvider>
+    <LayoutProvider>
+      <Box
+        display='flex'
+        flexDirection='row'
+        minHeight='100vh'
+      >
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Sidebar />
+        </QueryClientProvider>
+        <Box
+          display='flex'
+          flexDirection='column'
+          flex={1}
+        >
+          <Navbar />
           <Box
-            display='flex'
-            flexDirection='row'
-            minHeight='100vh'
+            flexGrow={1}
+            mx={4}
           >
-            <Sidebar />
-            <Box
-              display='flex'
-              flexDirection='column'
-              flex={1}
-            >
-              <Navbar />
-              <Box flexGrow={1}>{children}</Box>
-              <Footer />
-            </Box>
+            {children}
           </Box>
-      </LayoutProvider>
-    </QueryClientProvider>
+          <Footer />
+        </Box>
+      </Box>
+    </LayoutProvider>
   )
 }
