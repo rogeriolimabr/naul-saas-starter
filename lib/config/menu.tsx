@@ -125,8 +125,8 @@ export const MenuItems: MenuItem[] = [
       },
       {
         label: 'Risk Analysis',
-        href: '/ics/risk_analysis',
-        disabled: true,
+        href: '/ics/risk-analysis',
+        disabled: false,
       },
     ],
   },

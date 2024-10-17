@@ -7,6 +7,13 @@ const envSchema = z.object({
   BASE_URL: z.string().url(),
   TURSO_CONNECTION_URL: z.string().url(),
   TURSO_AUTH_TOKEN: z.string().min(1),
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
+  NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().min(1),
+  NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().min(1),
+  NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: z.string().min(1),
+  NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: z.string().min(1),
+  CLERK_SECRET_KEY: z.string().min(1),
+  REDIS_URL: z.string().min(1),
   ENV: z
     .union([
       z.literal('development'),

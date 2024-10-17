@@ -6,9 +6,9 @@ import { dark } from '@clerk/themes'
 import '@/lib/styles/globals.css'
 
 export const metadata: Metadata = {
-  title: 'Naul SaaS Starter Kit',
+  title: 'Arcanjo - Cyber Security Platform',
   description:
-    'Get started quickly with Next.js, Turso, Zod, Clerk, React-Query, React-Table and Stripe.',
+    'arcanjo.adint.io',
 }
 
 export const viewport: Viewport = {
